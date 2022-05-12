@@ -11,13 +11,14 @@ class ABE : public AB<Key> {
         bool buscar (const Key& k);
         void insertarEquilRama(const Key& k, NodoB<Key> *nodo);
         bool busqueda (const Key& k, NodoB<Key> *nodo);
-        void eliminar (Key& k);
+        bool eliminar (Key& k);
 };
 
 
 template<class Key>
-void ABE<Key>::eliminar (Key& k) {
+bool ABE<Key>::eliminar (Key& k) {
     throw "La operación de eliminación no está disponible en el ABE";
+    return false;
 }
 
 

@@ -11,7 +11,7 @@ class AB {
 
         virtual bool insertar (const Key& k) = 0;
         virtual bool buscar (const Key& k) = 0;
-        virtual void eliminar (Key& k) = 0;
+        virtual bool eliminar (Key& k) = 0;
 
         void inorden() const;
         
