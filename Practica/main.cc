@@ -1,11 +1,37 @@
 #include <iostream>
 #include "ABE.h"
+#include "ABB.h"
 
 using Key = int;
 
 int main() {
     int opcion = -1;
-    AB<Key>* arbol = new ABE<Key>;
+    AB<Key>* arbol;
+
+    while (opcion != 1 && opcion != 2) {
+        std::cout << "1 -> ABE (Árbol Binario Equilibrado)" << std::endl;
+        std::cout << "2 -> ABB (Árbol Binario de Búsqueda)" << std::endl;
+        std::cout << "¿Qué tipo de árbol desea?: ";
+        std::cin >> opcion;
+        std::cout << std::endl;
+
+    }
+    
+
+    switch (opcion) {
+    case 1:
+        arbol = new ABE<Key>;
+        break;
+
+    case 2:
+        arbol = new ABB<Key>;
+        break;
+    
+    default:
+        std::cerr << "ERROR en la opción del árbol" << std::endl;
+        break;
+    }
+
     std::cout << "Árbol vacío" << std::endl;
     //arbol->AB<Key>::Imprimir();
     std::cout << arbol << std::endl;
@@ -18,7 +44,8 @@ int main() {
         std::cout << "[0] Salir" << std::endl;
         std::cout << "[1] Insertar clave" << std::endl;
         std::cout << "[2] Buscar clave" << std::endl;
-        std::cout << "[3] Mostrar árbol inorden" << std::endl;
+        std::cout << "[3] Elimnar clave" << std::endl;
+        std::cout << "[4] Mostrar árbol inorden" << std::endl;
         std::cout << "-------------------------" << std::endl;
 
         std::cin >> opcion;
@@ -48,22 +75,20 @@ int main() {
             break;
 
         case 3:
-            arbol->inorden();
-            break;
-
-        case 4:
-            std::cout << arbol << std::endl;
-            //arbol->Imprimir();
-            break;
-        
-        case 5:
             try {
                 arbol->eliminar(Clave);
             } catch (const char* message) {
                 std::cerr << message << std::endl;
             }
             break;
+            
+        case 4:
+            arbol->inorden();
+            break;
         
+        case 5:
+            std::cout << arbol << std::endl;
+            break;
         default:
             break;
         }

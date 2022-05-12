@@ -6,7 +6,6 @@ class NodoB {
     public:
         NodoB (const Key& dat, NodoB *izq = NULL, NodoB *der = NULL) : dato_(dat), izdo_(izq), dcho_(der) {}
 
-        void setNodo(Key k);
         // NodoB<Key> *nodo,
         //NodoB* setNodo2(Key valor);
 
@@ -29,11 +28,6 @@ class NodoB {
         NodoB *dcho_;
 
 };
-
-template<class Key>
-void NodoB<Key>::setNodo (Key k) {
-    dato_ = new NodoB<Key> (k);
-}
 
 template<class Key>
 void NodoB<Key>::setNodoIz(Key k) {

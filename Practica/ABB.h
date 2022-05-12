@@ -15,14 +15,16 @@ class ABB : public AB<Key> {
         bool eliminar (Key& k);
         bool eliminacion (NodoB<Key> *nodo, Key& k);
         void sustituir (NodoB<Key> *eliminado, NodoB<Key> *sustituto);
+        bool balanceado();
+        bool balanceadoRama(NodoB<Key> *nodo);
 };
 
 template<class Key>
 bool ABB<Key>::eliminar (Key& k) {
-    if (AB<Key>::getRaiz() == NULL){
+    if (AB<Key>::getRaiz() == NULL || !buscar(k)){
         return false;
     } 
-    eliminacion(AB<Key>::getRaiz(), k);
+    return eliminacion(AB<Key>::getRaiz(), k);
 }
 
 
@@ -32,10 +34,10 @@ bool ABB<Key>::eliminacion (NodoB<Key> *nodo, Key& k) {
         return false;
     } 
 
-    if (k < nodo->getClave()) {
-        eliminacion(nodo->getNodoIzq(), k);
+    if (k < nodo->getDato()) {
+        return eliminacion(nodo->getNodoIzq(), k);
     } else if (k > nodo->getDato()) {
-        eliminacion(nodo->getNodoDer(), k);
+        return eliminacion(nodo->getNodoDer(), k);
     } else { // k == nodo->getDato()
         NodoB<Key> *Eliminado = nodo;
         if (nodo->getNodoDer() == NULL) {
@@ -46,7 +48,10 @@ bool ABB<Key>::eliminacion (NodoB<Key> *nodo, Key& k) {
             sustituir(Eliminado, nodo->getNodoIzq());
         }
         delete (Eliminado);
+        return true;
     }
+    return false;
+    
 }
 
 template<class Key>
@@ -63,12 +68,36 @@ void ABB<Key>::sustituir (NodoB<Key> *eliminado, NodoB<Key> *sustituto) {
 
 }
 
+template<class Key>
+bool ABB<Key>::balanceado() {
+   return balanceadoRama(AB<Key>::getRaiz());
+}
+
+template<class Key>
+bool ABB<Key>::balanceadoRama(NodoB<Key> *nodo){
+    if (nodo == NULL) {
+        return true;
+    } 
+    int balance = AB<Key>::AltN(nodo->getNodoIzq()) - AB<Key>::AltN(nodo->getNodoDer());
+    switch (balance){
+    case -1:
+    case 0:
+    case 1:
+        return (balanceadoRama(nodo->getNodoIzq()) && balanceadoRama(nodo->getNodoDer()));
+        break;
+    default:
+        return false;
+        break;
+    }
+
+}
 
 template<class Key>
 bool ABB<Key>::insertar (const Key& k) {
     if (buscar(k)) {
         return false;
     }
+    //insertarEquilRama(k, AB<Key>::getRaiz());
     if (AB<Key>::getRaiz() == NULL) {
         AB<Key>::setRaiz3(k);
     } else {
@@ -84,28 +113,24 @@ void ABB<Key>::insertarEquilRama(const Key& k, NodoB<Key> *nodo) {
 
     if (nodo == NULL) {
         nodo = new NodoB<Key> (k);
+        std::cout << "nodo: " << nodo->getDato() << std::endl;
+        
     } else if (k < nodo->getDato()) {
-        insertarEquilRama(k, nodo->getNodoIzq());
-    } else {
-        insertarEquilRama(k, nodo->getNodoDer());
-    }
 
-
-
-    
-    /*if (tam_izq <= tam_der) {
         if (nodo->getNodoIzq() != NULL) {
             insertarEquilRama(k, nodo->getNodoIzq());
         } else {
             nodo->setNodoIz(k);
         }
+
     } else {
-        if (nodo->getNodoDer() != NULL){
+        if (nodo->getNodoDer() != NULL) {
             insertarEquilRama(k, nodo->getNodoDer());
-        } else {            
+        } else {
             nodo->setNodoDe(k);
         }
-    }*/
+    }
+
 }
 
 template<class Key>
@@ -122,7 +147,7 @@ bool ABB<Key>::busqueda (const Key& k, NodoB<Key> *nodo) {
     if (k == nodo->getDato()) {
         return true;
     } 
-    if (k > nodo->getDato()) {
+    if (k < nodo->getDato()) {
         return busqueda(k, nodo->getNodoIzq());
     }
     return busqueda(k, nodo->getNodoDer());

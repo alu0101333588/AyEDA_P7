@@ -38,6 +38,9 @@ class AB {
         NodoB<Key> getRaiz2() {return raiz_;}
         NodoB<Key> getRaiz2() const {return raiz_;}
         int Nivel (NodoB<Key> *nodo);
+
+        int AltN(NodoB<Key> *nodo);
+        int Alt();
         
 
     private:
@@ -208,4 +211,23 @@ int AB<Key>::Tamano() {
         return (1 + Tamano(raiz_->getNodoIzq()) + Tamano(raiz_->getNodoDer()));
     }
     return 0;
+}
+
+template<class Key>
+int AB<Key>::Alt() {
+    return AtlN(raiz_);
+}
+
+template<class Key>
+int AB<Key>::AltN(NodoB<Key> *nodo) {
+    if (nodo == NULL) {
+        return 0;
+    }
+    int alt_i = AltN(nodo->getNodoIzq());
+    int alt_d = AltN(nodo->getNodoDer());
+    if (alt_d > alt_i) {
+        return alt_d + 1;
+    } else {
+        return alt_i + 1;
+    }
 }
