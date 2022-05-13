@@ -14,12 +14,15 @@ class NodoB {
 
         Key getDato() {return dato_;}
 
+        void setNodo(NodoB* nodo);
+
         void setDato(Key dato) {dato_ = dato;}
 
         void setNodoIz(Key k);
         void setNodoDe(Key k);
         void inordenNodo();
         void inordenNodo2(NodoB<Key> *nodo);
+        void imprimir ();
 
 
     private:
@@ -28,6 +31,15 @@ class NodoB {
         NodoB *dcho_;
 
 };
+
+
+template<class Key>
+void NodoB<Key>::setNodo(NodoB<Key>* nodo){
+    dato_ = nodo->getDato();
+    izdo_ = nodo->getNodoIzq();
+    dcho_ = nodo->getNodoDer();
+}
+
 
 template<class Key>
 void NodoB<Key>::setNodoIz(Key k) {
@@ -54,4 +66,17 @@ void NodoB<Key>::inordenNodo2(NodoB<Key> *nodo) {
     inordenNodo2(nodo->getNodoIzq());
     std::cout << "[" << nodo->getDato() << "] ";    
     inordenNodo2(nodo->getNodoDer());
+}
+
+template<class Key>
+void NodoB<Key>::imprimir() {
+    std::cout << "***********************" << std::endl;
+    std::cout << "Nodo: " << getDato() << std::endl;
+    if (getNodoDer() != NULL) {
+        std::cout << "Hijo derecho: " << getNodoDer()->getDato() << std::endl;
+    }
+    if (getNodoIzq() != NULL) {
+        std::cout << "Hijo izquierdo: " << getNodoIzq()->getDato() << std::endl;
+    }
+    std::cout << "***********************" << std::endl;
 }

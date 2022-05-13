@@ -78,7 +78,7 @@ int main() {
             std::cout << "Clave (Eliminar): ";
             std::cin >> Clave;
             if (arbol->eliminar(Clave)) {
-                std::cout << "Eliminado con éxito la clave: " << Clave << std::endl;
+                std::cout << "Eliminada con éxito la clave: " << Clave << std::endl;
             } else {
                 std::cout << "El elemento no existe: " << Clave << std::endl;
             }

@@ -13,8 +13,8 @@ class ABB : public AB<Key> {
         void insertarEquilRama(const Key& k, NodoB<Key> *nodo);
         bool busqueda (const Key& k, NodoB<Key> *nodo);
         bool eliminar (Key& k);
-        bool eliminacion (NodoB<Key> *nodo, Key& k);
-        void sustituir (NodoB<Key> *eliminado, NodoB<Key> *sustituto);
+        bool eliminacion (NodoB<Key>* nodo, Key& k);
+        void sustituir (NodoB<Key>* eliminado, NodoB<Key>* sustituto);
         bool balanceado();
         bool balanceadoRama(NodoB<Key> *nodo);
 };
@@ -29,7 +29,7 @@ bool ABB<Key>::eliminar (Key& k) {
 
 
 template<class Key>
-bool ABB<Key>::eliminacion (NodoB<Key> *nodo, Key& k) {
+bool ABB<Key>::eliminacion (NodoB<Key>* nodo, Key& k) {
     std::cout << "elimina" << std::endl;
     if (nodo == NULL){
         return false;
@@ -40,15 +40,24 @@ bool ABB<Key>::eliminacion (NodoB<Key> *nodo, Key& k) {
     } else if (k > nodo->getDato()) {
         return eliminacion(nodo->getNodoDer(), k);
     } else { // k == nodo->getDato()
-        NodoB<Key> *Eliminado = nodo;
-        if (nodo->getNodoDer() == NULL) {
-            nodo = nodo->getNodoIzq();
+        NodoB<Key>* Eliminado = nodo;
+        if (nodo->getNodoDer() == NULL && nodo->getNodoIzq() == NULL) {
+            nodo = NULL;
+            //delete(nodo);
+            if (nodo == NULL) {
+                std::cout << "fiesta" << std::endl;
+            } else {
+                std::cout << "problema" << std::endl;
+            }
+        } else if (nodo->getNodoDer() == NULL) {
+            nodo->setNodo(nodo->getNodoIzq());
         } else if (nodo->getNodoIzq() == NULL) {
-            nodo = nodo->getNodoDer();
+            nodo->setNodo(nodo->getNodoDer());
         } else {
-            sustituir(Eliminado, nodo->getNodoIzq());
+            sustituir(nodo, nodo->getNodoIzq());
+            //sustituir(Eliminado, nodo->getNodoIzq());
         }
-        delete (Eliminado);
+        //delete (Eliminado);
         return true;
     }
     return false;
@@ -56,7 +65,7 @@ bool ABB<Key>::eliminacion (NodoB<Key> *nodo, Key& k) {
 }
 
 template<class Key>
-void ABB<Key>::sustituir (NodoB<Key> *eliminado, NodoB<Key> *sustituto) {
+void ABB<Key>::sustituir (NodoB<Key>* eliminado, NodoB<Key>* sustituto) {
 
     if (sustituto->getNodoDer() != NULL) {
         sustituir(eliminado, sustituto->getNodoDer());
@@ -66,6 +75,7 @@ void ABB<Key>::sustituir (NodoB<Key> *eliminado, NodoB<Key> *sustituto) {
         sustituto = sustituto->getNodoIzq();
 
     }
+    std::cout << "sustituto: " << eliminado->getDato() << " :: " << sustituto->getDato() << std::endl;
 
 }
 
