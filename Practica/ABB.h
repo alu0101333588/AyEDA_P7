@@ -30,6 +30,7 @@ bool ABB<Key>::eliminar (Key& k) {
 
 template<class Key>
 bool ABB<Key>::eliminacion (NodoB<Key> *nodo, Key& k) {
+    std::cout << "elimina" << std::endl;
     if (nodo == NULL){
         return false;
     } 

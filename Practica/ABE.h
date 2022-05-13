@@ -17,7 +17,7 @@ class ABE : public AB<Key> {
 
 template<class Key>
 bool ABE<Key>::eliminar (Key& k) {
-    throw "La operación de eliminación no está disponible en el ABE";
+    std::cout << "La operación de eliminación no está disponible en el ABE" << std::endl;
     return false;
 }
 

@@ -44,7 +44,7 @@ int main() {
         std::cout << "[0] Salir" << std::endl;
         std::cout << "[1] Insertar clave" << std::endl;
         std::cout << "[2] Buscar clave" << std::endl;
-        std::cout << "[3] Elimnar clave" << std::endl;
+        std::cout << "[3] Eliminar clave" << std::endl;
         std::cout << "[4] Mostrar árbol inorden" << std::endl;
         std::cout << "-------------------------" << std::endl;
 
@@ -75,10 +75,12 @@ int main() {
             break;
 
         case 3:
-            try {
-                arbol->eliminar(Clave);
-            } catch (const char* message) {
-                std::cerr << message << std::endl;
+            std::cout << "Clave (Eliminar): ";
+            std::cin >> Clave;
+            if (arbol->eliminar(Clave)) {
+                std::cout << "Eliminado con éxito la clave: " << Clave << std::endl;
+            } else {
+                std::cout << "El elemento no existe: " << Clave << std::endl;
             }
             break;
             
