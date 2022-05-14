@@ -149,7 +149,7 @@ void AB<Key>::ImpresionNivel(std::ostream& os, NodoB<Key> *raiz, int nivel) {
     }
 
     if (nivel == 1) {
-        os << "["<< raiz->getDato() << "]";
+        os << "["<< raiz->getDato() << "]";        
 
     } else if (nivel > 1) {
         ImpresionNivel(os, raiz->getNodoIzq(), nivel-1); // -1

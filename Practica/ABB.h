@@ -30,18 +30,18 @@ bool ABB<Key>::eliminar (Key& k) {
 
 template<class Key>
 bool ABB<Key>::eliminacion (NodoB<Key>* nodo, Key& k) {
-    std::cout << "elimina" << std::endl;
+    //std::cout << "elimina" << std::endl;
     if (nodo == NULL){
         return false;
     } 
 
-    if (k < nodo->getDato()) {
+    if (k < nodo->getDato()) { // k < nodo
         return eliminacion(nodo->getNodoIzq(), k);
-    } else if (k > nodo->getDato()) {
+    } else if (k > nodo->getDato()) { // k > nodo
         return eliminacion(nodo->getNodoDer(), k);
     } else { // k == nodo->getDato()
-        NodoB<Key>* Eliminado = nodo;
-        if (nodo->getNodoDer() == NULL && nodo->getNodoIzq() == NULL) {
+        //NodoB<Key>* Eliminado = nodo;
+        /*if (nodo->getNodoDer() == NULL && nodo->getNodoIzq() == NULL) {
             nodo = NULL;
             //delete(nodo);
             if (nodo == NULL) {
@@ -49,15 +49,26 @@ bool ABB<Key>::eliminacion (NodoB<Key>* nodo, Key& k) {
             } else {
                 std::cout << "problema" << std::endl;
             }
-        } else if (nodo->getNodoDer() == NULL) {
-            nodo->setNodo(nodo->getNodoIzq());
+        } else */
+        if (nodo->getNodoDer() == NULL) {
+            //nodo->setDato(nodo->getNodoIzq()->getDato()); 
+            nodo = nodo->getNodoIzq();
+            //nodo->setNodo(nodo->getNodoIzq());
         } else if (nodo->getNodoIzq() == NULL) {
-            nodo->setNodo(nodo->getNodoDer());
+            //nodo->setDato(nodo->getNodoDer()->getDato()); 
+            nodo = nodo->getNodoDer();
+            //nodo->setNodo(nodo->getNodoDer());
         } else {
             sustituir(nodo, nodo->getNodoIzq());
+            std::cout << "sustituto" << std::endl;
             //sustituir(Eliminado, nodo->getNodoIzq());
         }
         //delete (Eliminado);
+        if (nodo != NULL) {
+            std::cout << "nodo: " << nodo->getDato() << std::endl; 
+        } else {
+            std::cout << "es nulo" << std::endl;
+        }
         return true;
     }
     return false;
