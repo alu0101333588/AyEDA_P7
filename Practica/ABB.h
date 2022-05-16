@@ -39,31 +39,15 @@ bool ABB<Key>::eliminacion (NodoB<Key>* &nodo, Key& k) {
         return eliminacion(nodo->getNodoIzq(), k);
     } else if (k > nodo->getDato()) { // k > nodo
         return eliminacion(nodo->getNodoDer(), k);
-    } else { // k == nodo->getDato()
-        //NodoB<Key>* Eliminado = nodo;
-        /*if (nodo->getNodoDer() == NULL && nodo->getNodoIzq() == NULL) {
-            nodo = NULL;
-            //delete(nodo);
-            if (nodo == NULL) {
-                std::cout << "fiesta" << std::endl;
-            } else {
-                std::cout << "problema" << std::endl;
-            }
-        } else */
+    } else { 
         if (nodo->getNodoDer() == NULL) {
-            //nodo->setDato(nodo->getNodoIzq()->getDato()); 
             nodo = nodo->getNodoIzq();
-            //nodo->setNodo(nodo->getNodoIzq());
         } else if (nodo->getNodoIzq() == NULL) {
-            //nodo->setDato(nodo->getNodoDer()->getDato()); 
             nodo = nodo->getNodoDer();
-            //nodo->setNodo(nodo->getNodoDer());
         } else {
             sustituir(nodo, nodo->getNodoIzq());
             std::cout << "sustituto" << std::endl;
-            //sustituir(Eliminado, nodo->getNodoIzq());
         }
-        //delete (Eliminado);
         if (nodo != NULL) {
             std::cout << "nodo: " << nodo->getDato() << std::endl; 
         } else {
