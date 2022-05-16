@@ -9,8 +9,8 @@ class NodoB {
         // NodoB<Key> *nodo,
         //NodoB* setNodo2(Key valor);
 
-        NodoB* getNodoIzq() {return izdo_;}
-        NodoB* getNodoDer() {return dcho_;}
+        NodoB* &getNodoIzq() {return izdo_;}
+        NodoB* &getNodoDer() {return dcho_;}
 
         Key getDato() {return dato_;}
 

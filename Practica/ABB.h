@@ -13,7 +13,7 @@ class ABB : public AB<Key> {
         void insertarEquilRama(const Key& k, NodoB<Key> *nodo);
         bool busqueda (const Key& k, NodoB<Key> *nodo);
         bool eliminar (Key& k);
-        bool eliminacion (NodoB<Key>* nodo, Key& k);
+        bool eliminacion (NodoB<Key>* &nodo, Key& k);
         void sustituir (NodoB<Key>* eliminado, NodoB<Key>* sustituto);
         bool balanceado();
         bool balanceadoRama(NodoB<Key> *nodo);
@@ -29,7 +29,7 @@ bool ABB<Key>::eliminar (Key& k) {
 
 
 template<class Key>
-bool ABB<Key>::eliminacion (NodoB<Key>* nodo, Key& k) {
+bool ABB<Key>::eliminacion (NodoB<Key>* &nodo, Key& k) {
     //std::cout << "elimina" << std::endl;
     if (nodo == NULL){
         return false;

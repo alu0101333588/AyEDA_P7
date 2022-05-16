@@ -28,7 +28,8 @@ class AB {
 
         bool Equilibrado(NodoB<Key> *nodo);
         bool Equilibrado();
-        NodoB<Key>* getRaiz() {return raiz_;}
+        //NodoB<Key>* getRaiz() {return raiz_;}
+        NodoB<Key>* &getRaiz() {return raiz_;}
 
     protected:
         void setRaiz2(Key nodo_padre, NodoB<Key> *nodo_hijo1 = NULL, NodoB<Key> *nodo_hijo2 = NULL);
