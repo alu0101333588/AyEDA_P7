@@ -30,7 +30,6 @@ bool ABB<Key>::eliminar (Key& k) {
 
 template<class Key>
 bool ABB<Key>::eliminacion (NodoB<Key>* &nodo, Key& k) {
-    //std::cout << "elimina" << std::endl;
     if (nodo == NULL){
         return false;
     } 
@@ -39,19 +38,13 @@ bool ABB<Key>::eliminacion (NodoB<Key>* &nodo, Key& k) {
         return eliminacion(nodo->getNodoIzq(), k);
     } else if (k > nodo->getDato()) { // k > nodo
         return eliminacion(nodo->getNodoDer(), k);
-    } else { 
+    } else { // k == nodo
         if (nodo->getNodoDer() == NULL) {
             nodo = nodo->getNodoIzq();
         } else if (nodo->getNodoIzq() == NULL) {
             nodo = nodo->getNodoDer();
         } else {
             sustituir(nodo, nodo->getNodoIzq());
-            std::cout << "sustituto" << std::endl;
-        }
-        if (nodo != NULL) {
-            std::cout << "nodo: " << nodo->getDato() << std::endl; 
-        } else {
-            std::cout << "es nulo" << std::endl;
         }
         return true;
     }
@@ -70,7 +63,6 @@ void ABB<Key>::sustituir (NodoB<Key>* eliminado, NodoB<Key>* sustituto) {
         sustituto = sustituto->getNodoIzq();
 
     }
-    std::cout << "sustituto: " << eliminado->getDato() << " :: " << sustituto->getDato() << std::endl;
 
 }
 
