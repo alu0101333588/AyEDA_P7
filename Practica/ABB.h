@@ -14,7 +14,7 @@ class ABB : public AB<Key> {
         bool busqueda (const Key& k, NodoB<Key> *nodo);
         bool eliminar (Key& k);
         bool eliminacion (NodoB<Key>* &nodo, Key& k);
-        void sustituir (NodoB<Key>* eliminado, NodoB<Key>* sustituto);
+        void sustituir (NodoB<Key>* &eliminado, NodoB<Key>* &sustituto);
         bool balanceado();
         bool balanceadoRama(NodoB<Key> *nodo);
 };
@@ -39,12 +39,13 @@ bool ABB<Key>::eliminacion (NodoB<Key>* &nodo, Key& k) {
     } else if (k > nodo->getDato()) { // k > nodo
         return eliminacion(nodo->getNodoDer(), k);
     } else { // k == nodo
+        NodoB<Key>* Eliminado = nodo;
         if (nodo->getNodoDer() == NULL) {
             nodo = nodo->getNodoIzq();
         } else if (nodo->getNodoIzq() == NULL) {
             nodo = nodo->getNodoDer();
         } else {
-            sustituir(nodo, nodo->getNodoIzq());
+            sustituir(Eliminado, nodo->getNodoIzq());
         }
         return true;
     }
@@ -53,7 +54,7 @@ bool ABB<Key>::eliminacion (NodoB<Key>* &nodo, Key& k) {
 }
 
 template<class Key>
-void ABB<Key>::sustituir (NodoB<Key>* eliminado, NodoB<Key>* sustituto) {
+void ABB<Key>::sustituir (NodoB<Key>* &eliminado, NodoB<Key>* &sustituto) {
 
     if (sustituto->getNodoDer() != NULL) {
         sustituir(eliminado, sustituto->getNodoDer());
